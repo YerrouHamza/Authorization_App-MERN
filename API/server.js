@@ -3,6 +3,8 @@ import mongoose from 'mongoose'
 import login from './routes/login.js'
 
 const app = express()
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }));
 
 // get the mongodb database and connected it with express js
 const dbUrl = 'mongodb://localhost:27017/login_study';
