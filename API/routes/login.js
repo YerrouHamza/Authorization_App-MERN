@@ -1,9 +1,14 @@
 import express from 'express'
 import { body, validationResult } from 'express-validator';
+import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import Users from '../models/users.js'
+import dotenv from 'dotenv';
 
 const router = express.Router()
+
+dotenv.config();
+const JWT_SECRET_KEY = process.env.JWT_SECRET
 
 // Get all users
 router.get('/', async (req, res) => {
@@ -19,6 +24,7 @@ router.get('/', async (req, res) => {
 /** Login into existing accont
     *  Type: GET
     *  Body: email: (required) & password: (required)
+    *  Return: JWT_Token
 */
 router.get(
     '/login',
@@ -48,11 +54,18 @@ router.get(
             const isPasswordCurrect = await bcrypt.compare(password, loginUser.password)
             if(!isPasswordCurrect) {
                 return res.status(500).json({message: `The Password is wrong please try again`})
-            } 
+            }
 
-            return res.status(200).json({message: `Succssfuly login into "${loginUser.userName}" account`})
+            // Created the Token with JWT(jsonwebtoken) method and make it expired on 30min and used the SECRET Key from .env file
+            const token = jwt.sign(
+                { id: loginUser._id, email: loginUser.email }, // payload
+                JWT_SECRET_KEY, // secret key
+                { expiresIn: '30m' } // expired duration
+            )
+
+            res.status(200).json({ token });
         } catch (error) {
-            return res.status(500).json({message: 'Server error while creating the user'})
+            res.status(500).json({message: 'Server error while creating the user'})
         }
     }
 )
