@@ -1,14 +1,14 @@
 import express from 'express'
 import { body, validationResult } from 'express-validator';
 import { hash } from 'bcrypt';
-import { loginUser } from '../models/users.js'
+import { Users } from '../models/users.js'
 
 const router = express.Router()
 
 // Get all users
 router.get('/', async (req, res) => {
     try {
-        const users = await loginUser.find()
+        const users = await Users.find()
 
         res.status(200).send(users)
     } catch (error) {
@@ -21,7 +21,7 @@ router.get('/:id', async (req, res) => {
     const userId = req.params.id;
 
     try {
-        const user = await loginUser.find({_id: userId})
+        const user = await Users.find({_id: userId})
         
         if(user) {
             return res.status(200).send(user);
@@ -55,7 +55,7 @@ router.post(
 
         try {
             // Check if there any existing users with the same email
-            const isUserExist = await loginUser.findOne({email})
+            const isUserExist = await Users.findOne({email})
             if(isUserExist) {
                 return res.status(400).json({messgae: `There already a user with this Email ${email}`})
             }
@@ -64,7 +64,7 @@ router.post(
             const hasPassword = await hash(password, 10)
 
             // Create a new user using the body data with hased password and save it to the database
-            const newUser = new loginUser({
+            const newUser = new Users({
                 userName: userName,
                 password: hasPassword,
                 email: email
