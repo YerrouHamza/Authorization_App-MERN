@@ -1,7 +1,7 @@
 import express from 'express'
 import { body, validationResult } from 'express-validator';
 import bcrypt from 'bcrypt';
-import { Users } from '../models/users.js'
+import Users from '../models/users.js'
 
 const router = express.Router()
 
@@ -87,15 +87,8 @@ router.post(
                 return res.status(401).json({messgae: `There already a user with this Email ${email}`})
             }
 
-            // use the byCript hash method to hased and crypted the password
-            const hasPassword = await bcrypt.hash(password, 10)
-
             // Create a new user using the body data with hased password and save it to the database
-            const newUser = new Users({
-                userName: userName,
-                password: hasPassword,
-                email: email
-            })
+            const newUser = new Users({userName, password, email})
             await newUser.save()
             
             return res.status(200).json({message: 'user have registered successfully'})
