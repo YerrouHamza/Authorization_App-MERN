@@ -1,6 +1,6 @@
 import express from 'express'
 import { body, validationResult } from 'express-validator';
-import { hash } from 'bcrypt';
+import bcrypt from 'bcrypt';
 import { Users } from '../models/users.js'
 
 const router = express.Router()
@@ -16,24 +16,51 @@ router.get('/', async (req, res) => {
     }
 })
 
-// Get user by the ID
-router.get('/:id', async (req, res) => {
-    const userId = req.params.id;
-
-    try {
-        const user = await Users.find({_id: userId})
-        
-        if(user) {
-            return res.status(200).send(user);
+/** Login into existing accont
+    *  Type: GET
+    *  Body: email: (required) & password: (required)
+*/
+router.get(
+    '/login',
+    [
+        body('email').isEmail().withMessage('Email is required and must be valid'),
+        body('password')
+            .isLength(6)
+            .withMessage('Password must be at least 6 characters long.')
+    ],
+    async (req, res) => {
+        const errors = validationResult(req)
+        if(!errors.isEmpty()) {
+            return res.status(400).json({errors: errors.array().map(error => `${error.path}: ${error.msg}`)})
         }
         
-        res.status(404).send({message: `the user with id ${userId} dosn't found`})
-    } catch (error) {
-        res.status(404).send({message: 'error when tyr to get the user'})
-    }
-})
+        try {
+            const {email, password} = req.body
 
-// Create new user (register)
+            // Check if the user is exits
+            const loginUser = await Users.findOne({email});
+            console.log(loginUser);
+            if(!loginUser) {
+                return res.status(500).json({message: `There is no users with this Email ${email}`})
+            }
+
+            // Check the password if it currect
+            const isPasswordCurrect = await bcrypt.compare(password, loginUser.password)
+            if(!isPasswordCurrect) {
+                return res.status(500).json({message: `The Password is wrong please try again`})
+            } 
+
+            return res.status(200).json({message: `Succssfuly login into "${loginUser.userName}" account`})
+        } catch (error) {
+            return res.status(500).json({message: 'Server error while creating the user'})
+        }
+    }
+)
+
+/** Create new user (register)
+    *  Type: GET
+    *  Body: userName & email: (required) & password: (required)
+*/
 router.post(
     '/register',
     [
@@ -47,7 +74,7 @@ router.post(
         // get the returned errors and return them as array
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).send({ errors: errors.array().map(error =>  `${error.path}: ${error.msg}`) });
+            return res.status(400).json({ errors: errors.array().map(error =>  `${error.path}: ${error.msg}`) });
         }
 
         // Get data from the body
@@ -57,11 +84,11 @@ router.post(
             // Check if there any existing users with the same email
             const isUserExist = await Users.findOne({email})
             if(isUserExist) {
-                return res.status(400).json({messgae: `There already a user with this Email ${email}`})
+                return res.status(401).json({messgae: `There already a user with this Email ${email}`})
             }
 
             // use the byCript hash method to hased and crypted the password
-            const hasPassword = await hash(password, 10)
+            const hasPassword = await bcrypt.hash(password, 10)
 
             // Create a new user using the body data with hased password and save it to the database
             const newUser = new Users({
@@ -71,7 +98,7 @@ router.post(
             })
             await newUser.save()
             
-            return res.status(201).json({message: 'user have registered successfully'})
+            return res.status(200).json({message: 'user have registered successfully'})
         } catch (error) {
             return res.status(500).json({message: 'Server error while creating the user'})
         }
