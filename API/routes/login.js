@@ -2,8 +2,8 @@ import express from 'express'
 import { body, validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import Users from '../models/users.js'
 import dotenv from 'dotenv';
+import Users from '../models/users.js'
 
 const router = express.Router()
 
@@ -58,9 +58,9 @@ router.get(
 
             // Created the Token with JWT(jsonwebtoken) method and make it expired on 30min and used the SECRET Key from .env file
             const token = jwt.sign(
-                { id: loginUser._id, email: loginUser.email }, // payload
-                JWT_SECRET_KEY, // secret key
-                { expiresIn: '30m' } // expired duration
+                { id: loginUser._id, email: loginUser.email, userName: loginUser.userName }, // payload {The Data that we coded so we get it when we decoded it}
+                JWT_SECRET_KEY, // secret key {key that we genrated it and we use it as base to coded and decoded the token}
+                { expiresIn: '1h' } // expired duration
             )
 
             res.status(200).json({ token });
