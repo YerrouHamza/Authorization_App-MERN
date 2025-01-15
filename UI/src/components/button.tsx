@@ -1,5 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import cn from "../lib/utils"
 
 
 type ButtonType = {
@@ -27,7 +28,11 @@ export default React.memo(function button({
     return (
         <ButtonComponent
             toPath={toPath} 
-            className={`border border-gray-400 text-md px-3 py-1.5 rounded-md transition-colors duration-200 ease-in-out ${variantStyle[variant]} ${className}`}
+            className={cn(
+                'border border-gray-400 text-md px-3 py-1.5 rounded-md transition-colors duration-200 ease-in-out',
+                variantStyle[variant],
+                className
+            )}
             type={type}
             onClick={onClick}
             variant={variant}
