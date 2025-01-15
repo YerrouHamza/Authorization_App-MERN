@@ -6,7 +6,7 @@ export default React.memo(function DefualtLayout({children}: {
 
 }) {
   return (
-    <main className='max-w-screen-xl m-auto py-5 h-screen'>
+    <main className='max-w-screen-xl m-auto py-5 h-screen space-y-10'>
         <Navbar />
         {children}
     </main>

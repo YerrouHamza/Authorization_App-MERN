@@ -16,38 +16,31 @@ export default React.memo(function Navbar () {
     ]
 
     return (
-        <div className="flex justify-between items-center px-4 py-5">
-            <NavLogo />
+        <nav className="flex justify-between items-center px-5 py-4 bg-slate-100 rounded-lg shadow-sm">
+            <Link to='/' className="text-2xl font-bold">LOGO</Link>
             <NavItems items={navList} />
             <NavActions />
-        </div>
+        </nav>
     )
 })
-
-
-const NavLogo = () => {
-    return (
-        <Link to='/' className="text-2xl font-bold">LOGO</Link>
-    )
-}
 
 const NavItems = ({items}: {
     items: { title: string, path: string }[]
 }) => {
     return (
-        <nav>
-            <ul className="flex justify-center items-center gap-4">
-                {items.map((item) => {
-                    return (
-                        <Link 
-                            key={item.path} 
-                            to={item.path} 
-                            className="text-lg capitalize"
-                        >{item.title}</Link>
-                    )
-                })}
-            </ul>
-        </nav>
+        <ul className="flex justify-center items-center gap-7">
+            {items.map((item) => {
+                return (
+                    <Link 
+                        key={item.path} 
+                        to={item.path}
+                        className="text-lg font-medium capitalize hover:text-blue-500"
+                    >
+                        {item.title}
+                    </Link>
+                )
+            })}
+        </ul>
     )
 }
 
