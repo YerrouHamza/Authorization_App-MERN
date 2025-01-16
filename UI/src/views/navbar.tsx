@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import Button from "../components/button"
 
 
-export default React.memo(function Navbar () {
+export default React.memo(function Navbar ({isLogin}:{isLogin: boolean}) {
     const navList = [
         {
             title: 'home',
@@ -18,7 +18,7 @@ export default React.memo(function Navbar () {
     return (
         <nav className="flex justify-between items-center px-5 py-4 bg-slate-100 rounded-lg shadow-sm">
             <Link to='/' className="text-2xl font-bold">LOGO</Link>
-            <NavItems items={navList} />
+            {isLogin && <NavItems items={navList} />}
             <NavActions />
         </nav>
     )

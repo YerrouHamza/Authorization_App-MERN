@@ -1,5 +1,9 @@
+import DefualtLayout from "../layouts/defualtLayout";
+
 export default function HomePage() {
   return (
-    <div>Welcome to the Home Page</div>
+    <DefualtLayout>
+      <div>Welcome to the Home Page</div>
+    </DefualtLayout>
   )
 }
