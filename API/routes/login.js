@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
     *  Body: email: (required) & password: (required)
     *  Return: JWT_Token
 */
-router.get(
+router.post(
     '/login',
     [
         body('email').isEmail().withMessage('Email is required and must be valid'),
