@@ -1,4 +1,6 @@
 import { createContext, ReactNode, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import api from "./api";
 
 interface UserType {
   userName: string;
@@ -7,19 +9,53 @@ interface UserType {
 
 type AuthrizationContextType = {
     user: UserType | null;
-    setUser: (value: UserType) => void;
     isLogin: boolean;
-    setIsLogin: (value: boolean) => void;
+    authLogin: (email: string, password: string) => void;
+    authRegister: (userName: string, email: string, password: string) => void;
+    authSingOut: () => void;
 }
 
 const AuthrizationContext = createContext<AuthrizationContextType | null>(null);
 
 export const AuthrizationContextProvider = ({ children }: { children: ReactNode }) => {
+  const navigate = useNavigate();
   const [user, setUser] = useState<UserType | null>(null);
   const [isLogin, setIsLogin] = useState<boolean>(() => !!localStorage.getItem("token_key"));
 
+  const authLogin = async (email: string, password: string) => {
+    await api.post('/auth/login', {email, password})
+      .then((res) => {
+        const data = res.data
+        localStorage.setItem('token_key', JSON.stringify(data.token));
+        
+        setUser(data.user);
+        setIsLogin(true)
+        
+        navigate('/')
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+  }
+
+  const authRegister = async (userName: string, email: string, password: string ) => {
+    await api.post('/auth/register', {userName, email, password})
+      .then(() => {
+        navigate('/login')
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+  }
+
+  const authSingOut = () => {
+    localStorage.removeItem('token_key');
+    setIsLogin(false)
+    navigate('/login');
+  }
+
   return (
-    <AuthrizationContext.Provider value={{user, setUser, isLogin, setIsLogin }}>
+    <AuthrizationContext.Provider value={{user, isLogin, authLogin, authRegister, authSingOut }}>
       {children}
     </AuthrizationContext.Provider>
   );

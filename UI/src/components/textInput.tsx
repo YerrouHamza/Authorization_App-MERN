@@ -2,6 +2,7 @@ import cn from "../lib/utils";
 
 export default function TextInput ({
     value,
+    name,
     label,
     onChange,
     type = 'text',
@@ -11,6 +12,7 @@ export default function TextInput ({
     ...props
 }: {
     value: string;
+    name: string;
     label: string
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     type?: string;
@@ -24,6 +26,7 @@ export default function TextInput ({
             <input
                 type={type}
                 value={value}
+                name={name}
                 className={cn('h-11 px-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring focus:border-blue-300', className)}
                 onChange={onChange}
                 required={required}
