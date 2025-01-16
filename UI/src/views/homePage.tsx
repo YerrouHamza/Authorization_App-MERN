@@ -1,9 +1,15 @@
+import React from "react";
+import WithAuthorizationProtection from "../auth/authorizationProtect";
 import DefualtLayout from "../layouts/defualtLayout";
 
-export default function HomePage() {
+const HomePage = React.memo(() => {
   return (
     <DefualtLayout>
       <div>Welcome to the Home Page</div>
     </DefualtLayout>
   )
-}
+})
+
+const ProtectedHomePage = WithAuthorizationProtection(HomePage);
+
+export default ProtectedHomePage;
