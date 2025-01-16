@@ -47,7 +47,7 @@ router.post(
             const loginUser = await Users.findOne({email});
             console.log(loginUser);
             if(!loginUser) {
-                return res.status(500).json({message: `There is no users with this Email ${email}`})
+                return res.status(404).json({message: `There is no users with this Email ${email}`})
             }
 
             // Check the password if it currect
