@@ -1,9 +1,14 @@
 import React, { ReactNode } from 'react'
 import Navbar from '../views/navbar'
+import LoaderOverlay from '../components/loaderOverlay'
+import useLoader from "../customHooks/useLoader";
 
 export default React.memo(function NonLoginLayout({children}: {children: ReactNode}) {
+  const {isLoading} = useLoader();
+
   return (
-    <main className='max-w-screen-xl m-auto py-5 h-screen space-y-10'>
+    <main className='max-w-screen-xl m-auto py-5 px-4 h-screen space-y-10'>
+        {isLoading && <LoaderOverlay />}
         <Navbar />
         {children}
     </main>
