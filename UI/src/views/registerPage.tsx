@@ -29,8 +29,8 @@ export default function RegisterPage() {
   const handleRegisterNewUser = () => {
     try {
       authRegister(
-        newUserInfo.email,
         newUserInfo.userName,
+        newUserInfo.email,
         newUserInfo.password
       )
     } catch (error) {

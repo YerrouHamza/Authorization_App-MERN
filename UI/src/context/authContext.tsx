@@ -46,7 +46,7 @@ export const AuthrizationContextProvider = ({ children }: { children: ReactNode 
 
   const authRegister = async (userName: string, email: string, password: string ) => {
     setIsLoading(true)
-    await api.post('/auth/register', {userName, email, password})
+    await api.post('/auth/register', {userName: userName, email, password})
       .then(() => {
         navigate('/login')
         setIsLoading(false)
@@ -62,7 +62,10 @@ export const AuthrizationContextProvider = ({ children }: { children: ReactNode 
     localStorage.removeItem('token_key');
     setIsLogin(false)
     navigate('/login');
-    setIsLoading(false)
+
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
   }
 
   return (
