@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuthrization } from './authContext';
+import useAuthrization from '../customHooks/useAuthrization';
 
 function WithAuthorizationProtection<T extends Record<string, unknown>>(WrappedComponent: React.ComponentType<T>) {
   return function ProtectedComponent(props: T) {

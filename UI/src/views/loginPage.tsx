@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAuthrization } from "../auth/authContext";
+import useAuthrization from "../customHooks/useAuthrization";
 import Button from "../components/ui/button";
 import Card from "../components/ui/card";
 import TextInput from "../components/ui/textInput";

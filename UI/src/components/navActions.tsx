@@ -1,4 +1,4 @@
-import { useAuthrization } from "../auth/authContext";
+import useAuthrization from "../customHooks/useAuthrization";
 import Button from "./ui/button";
 
 export default function NavActions() {

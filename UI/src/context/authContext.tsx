@@ -1,6 +1,6 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "./api";
+import api from "../auth/api";
 
 interface UserType {
   userName: string;
@@ -61,11 +61,4 @@ export const AuthrizationContextProvider = ({ children }: { children: ReactNode 
   );
 };
 
-// Create custom hook for getting the Authorization context
-export const useAuthrization = () => {
-  const context = useContext(AuthrizationContext);
-  if (!context) {
-    throw new Error("Error: AuthrizationContext must be used within AuthrizationContextProvider");
-  }
-  return context;
-};
+export default AuthrizationContext;

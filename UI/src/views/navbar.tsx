@@ -1,6 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { useAuthrization } from "../auth/authContext"
+import useAuthrization from "../customHooks/useAuthrization"
 import NavActions from "../components/navActions"
 
 const navList = [
