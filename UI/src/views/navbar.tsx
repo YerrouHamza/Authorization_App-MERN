@@ -1,20 +1,21 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import Button from "../components/button"
+import { useAuthrization } from "../auth/authContext"
+import NavActions from "../components/navActions"
 
+const navList = [
+    {
+        title: 'home',
+        path: '/'
+    },
+    {
+        title: 'About Me',
+        path: '/about-me'
+    }
+]
 
-export default React.memo(function Navbar ({isLogin}:{isLogin: boolean}) {
-    const navList = [
-        {
-            title: 'home',
-            path: '/'
-        },
-        {
-            title: 'About Me',
-            path: '/about-me'
-        }
-    ]
-
+export default React.memo(function Navbar () {
+    const {isLogin} = useAuthrization()
     return (
         <nav className="flex justify-between items-center px-5 py-4 bg-slate-100 rounded-lg shadow-sm">
             <Link to='/' className="text-2xl font-bold">LOGO</Link>
@@ -41,15 +42,6 @@ const NavItems = ({items}: {
                 )
             })}
         </ul>
-    )
-}
-
-const NavActions = () => {
-    return (
-        <div className="flex items-center gap-4">
-            <Button type='link' toPath="/login" variant='secondary'>Login</Button>
-            <Button type='link' toPath='/register' variant="primary">Register</Button>
-        </div>
     )
 }
  
