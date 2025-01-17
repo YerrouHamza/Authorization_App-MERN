@@ -1,9 +1,43 @@
+import { useState } from "react";
+import { useAuthrization } from "../auth/authContext";
 import Button from "../components/button";
 import Card from "../components/card";
 import TextInput from "../components/textInput";
 import DefualtLayout from "../layouts/defualtLayout";
 
+type LoginInfoType = {
+  userName: string;
+  email: string;
+  password: string;
+}
+
 export default function RegisterPage() {
+  const { authRegister } = useAuthrization()
+  const [newUserInfo, setNewUserInfo] = useState<LoginInfoType>({
+    userName: '',
+    email: '',
+    password: ''
+  });
+  
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const {name, value} = e.target;
+    setNewUserInfo({
+        ...newUserInfo,
+        [name]: value
+    });
+  }
+
+  const handleRegisterNewUser = () => {
+    try {
+      authRegister(
+        newUserInfo.email,
+        newUserInfo.userName,
+        newUserInfo.password
+      )
+    } catch (error) {
+      console.error('"Register" error while register new user ', error);
+    }
+  }
   return (
     <DefualtLayout isLogin={false}>
         <div className="flex justify-center items-center h-4/5">
@@ -11,25 +45,28 @@ export default function RegisterPage() {
           <form className="space-y-5">
             <TextInput
               type="text"
+              name="userName"
               label="UserName"
-              value=""
-              onChange={() => ''}
+              value={newUserInfo.userName}
+              onChange={handleChange}
             />
             <TextInput
               type="email"
+              name="email"
               label="Email"
-              value=""
-              onChange={() => ''}
+              value={newUserInfo.email}
+              onChange={handleChange}
             />
             <TextInput
               type="password"
+              name="password"
               label="Password"
-              value=""
-              onChange={() => ''}
+              value={newUserInfo.password}
+              onChange={handleChange}
             />
           </form>
 
-          <Button variant="primary" className="w-full py-2 text-lg">Create Account</Button>
+          <Button variant="primary" className="w-full py-2 text-lg" onClick={handleRegisterNewUser}>Create Account</Button>
         </Card>
       </div>
     </DefualtLayout>

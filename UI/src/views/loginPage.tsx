@@ -25,6 +25,17 @@ export default function LoginPage() {
     });
   }
 
+  const handleLogin = () => {
+    try {
+      authLogin(
+        loginInfo.email,
+        loginInfo.password
+      )
+    } catch (error) {
+      console.error('"Login" error while login into account', error);
+    }
+  }
+
   return (
     <DefualtLayout isLogin={false}>
       <div className="flex justify-center items-center h-4/5">
@@ -46,7 +57,7 @@ export default function LoginPage() {
             />
           </form>
 
-          <Button variant="primary" className="w-full py-2 text-lg" onClick={() => authLogin(loginInfo.email, loginInfo.password)}>Login</Button>
+          <Button variant="primary" className="w-full py-2 text-lg" onClick={handleLogin}>Login</Button>
         </Card>
       </div>
     </DefualtLayout>
