@@ -4,7 +4,7 @@ import cn from "../../lib/utils"
 
 
 type ButtonType = {
-    type?: 'button' | 'link',
+    type?: 'submit' | 'button' | 'link',
     variant: 'primary' | 'secondary',
     toPath?: string,
     className?: string,

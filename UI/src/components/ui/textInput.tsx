@@ -1,38 +1,36 @@
+import { forwardRef } from "react";
 import cn from "../../lib/utils";
 
-export default function TextInput ({
-    value,
-    name,
-    label,
-    onChange,
-    type = 'text',
-    required = false,
-    placeholder = '',
-    className = '',
-    ...props
-}: {
-    value: string;
-    name: string;
-    label: string
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+type TextInputPropsType = {
+    label: string;
     type?: string;
-    required?: boolean;
     placeholder?: string;
     className?: string;
-}) {
+    errorMessage?: string;
+}
+
+const TextInput = forwardRef<HTMLInputElement, TextInputPropsType>(
+    ({label, type = "text", placeholder = "", className = "", errorMessage = "", ...props}, ref) => {
     return (
         <div className="space-y-2">
             {label && <label>{label}</label>}
             <input
+                ref={ref}
                 type={type}
-                value={value}
-                name={name}
-                className={cn('h-11 px-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring focus:border-blue-300', className)}
-                onChange={onChange}
-                required={required}
                 placeholder={placeholder}
+                className={cn(
+                    "h-11 px-2 border rounded-md w-full focus:outline-none focus:ring",
+                    errorMessage
+                        ? "border-red-500 focus:border-red-500 focus:ring-red-300"
+                        : "border-gray-300 focus:border-blue-300 focus:ring-blue-300",
+                    className
+                )}
                 {...props}
             />
+            {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
         </div>
-    ) 
-}
+    );
+})
+
+TextInput.displayName = 'TextInput';
+export default TextInput;
