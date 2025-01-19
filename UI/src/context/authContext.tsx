@@ -21,7 +21,7 @@ const AuthrizationContext = createContext<AuthrizationContextType | null>(null);
 export const AuthrizationContextProvider = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
   const { setIsLoading } = useLoader();
-  const [user, setUser] = useState<UserType | null>(null);
+  const [user, setUser] = useState<UserType | null>(() => JSON.parse(localStorage.getItem("user") as string) || null);
   const [isLogin, setIsLogin] = useState<boolean>(() => !!localStorage.getItem("token_key"));
 
   const authLogin = async (email: string, password: string) => {
@@ -30,8 +30,9 @@ export const AuthrizationContextProvider = ({ children }: { children: ReactNode 
       .then((res) => {
         const data = res.data
         localStorage.setItem('token_key', JSON.stringify(data.token));
+        localStorage.setItem('user', JSON.stringify(data.loginUser));
         
-        setUser(data.user);
+        setUser(data.loginUser);
         setIsLogin(true)
         
         navigate('/')
@@ -60,6 +61,7 @@ export const AuthrizationContextProvider = ({ children }: { children: ReactNode 
   const authSingOut = () => {
     setIsLoading(true)
     localStorage.removeItem('token_key');
+    localStorage.removeItem('user');
     setIsLogin(false)
     navigate('/login');
 

@@ -15,11 +15,11 @@ const navList = [
 ]
 
 export default React.memo(function Navbar () {
-    const {isLogin} = useAuthrization()
+    const {isLogin, user} = useAuthrization()
     return (
         <nav className="flex justify-between items-center px-5 py-4 bg-slate-100 rounded-lg shadow-sm">
             <Link to='/' className="text-2xl font-bold">LOGO</Link>
-            {isLogin && <NavItems items={navList} />}
+            {(isLogin && user) && <NavItems items={navList} />}
             <NavActions />
         </nav>
     )
