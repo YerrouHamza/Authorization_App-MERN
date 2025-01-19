@@ -1,5 +1,11 @@
 {
-  "name": "login_app_api",
+  "name": "api-authorization_app_mern",
+  "author": {
+    "name": "Sarvesh Kumar",
+    "email": "hamzayerrou5@gmail.com",
+    "url": "https://hamzayerrou.com/",
+    "github": "https://github.com/YerrouHamza"
+  },
   "version": "1.0.0",
   "description": "The API folder of the Login App Study for MERN Stack Project",
   "main": "index.js",
@@ -8,8 +14,6 @@
     "startDev": "nodemon server.js"
   },
   "keywords": [],
-  "author": "Hamza Yerrou",
-  "portfolio": "www.hamzayerrou.com",
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.1.1",

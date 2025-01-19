@@ -1,5 +1,11 @@
 {
-  "name": "vite-project",
+  "name": "ui-authorization_app_mern",
+  "author": {
+    "name": "Sarvesh Kumar",
+    "email": "hamzayerrou5@gmail.com",
+    "url": "https://hamzayerrou.com/",
+    "github": "https://github.com/YerrouHamza"
+  },
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,6 +15,7 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "license": "MIT",
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
     "axios": "^1.7.9",

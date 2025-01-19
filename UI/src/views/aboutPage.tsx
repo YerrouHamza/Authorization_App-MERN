@@ -23,7 +23,7 @@ const AboutPage = React.memo(() => {
       
       <section>
         <p className="text-lg text-gray-600 mb-10">
-          Hi, I'm <span className="font-semibold text-blue-600">Hamza Yerrou</span>, a passionate Front-end Developer with 4 years of experience. I am committed to continuous learning and growth in the field of web development. I have a deep passion for creating beautiful, user-friendly, and responsive websites and web applications. With a solid foundation in front-end technologies such as HTML, CSS, JavaScript, React, and Tailwind CSS, I strive to deliver exceptional user experiences. <br />
+          Hi, I'm <span className="font-semibold text-blue-600">Hamza Yerrou</span>, a Senior Front-end Developer with 4 years of experience. I am committed to continuous learning and growth in the field of web development. I have a deep passion for creating beautiful, user-friendly, and responsive websites and web applications. <br />
           Additionally, I have a good understanding of back-end technologies like Node.js, Express, and MongoDB, which allows me to build full-stack applications. I'm always seeking new challenges and opportunities to expand my skill set and grow as a developer.
         </p>
       </section>
