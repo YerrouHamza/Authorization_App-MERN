@@ -63,7 +63,13 @@ router.post(
                 { expiresIn: '1h' } // expired duration
             )
 
-            res.status(200).json({ token });
+            const returnUserData = {
+                userName: loginUser.userName,
+                email: loginUser.email,
+                date: loginUser.date
+            }
+
+            res.status(200).json({ token, loginUser: returnUserData });
         } catch (error) {
             res.status(500).json({message: 'Server error while creating the user'})
         }
