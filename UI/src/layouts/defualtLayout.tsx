@@ -7,10 +7,12 @@ export default React.memo(function NonLoginLayout({children}: {children: ReactNo
   const {isLoading} = useLoader();
 
   return (
-    <main className='max-w-screen-xl m-auto py-5 px-4 h-screen space-y-10'>
+    <main className='max-w-screen-xl m-auto py-5 px-4 min-h-screen'>
         {isLoading && <LoaderOverlay />}
-        <Navbar />
-        {children}
+        <div className='space-y-10 h-full'>
+          <Navbar />
+          {children}
+        </div>
     </main>
   )
 })
