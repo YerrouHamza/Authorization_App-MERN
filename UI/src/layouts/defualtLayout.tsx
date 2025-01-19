@@ -7,7 +7,7 @@ export default React.memo(function NonLoginLayout({children}: {children: ReactNo
   const {isLoading} = useLoader();
 
   return (
-    <main className='max-w-screen-xl m-auto py-5 px-4 min-h-screen'>
+    <main className='max-w-screen-xl m-auto py-5 px-4 h-screen'>
         {isLoading && <LoaderOverlay />}
         <div className='space-y-10 h-full'>
           <Navbar />
