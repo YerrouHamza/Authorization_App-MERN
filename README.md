@@ -1,20 +1,20 @@
-# MERN Stack Authorization App
+# MERN Stack Authorization App  
+![MERN Stack](https://img.shields.io/badge/Stack-MERN-green) ![License](https://img.shields.io/badge/License-MIT-blue)
 
 This project is a MERN (MongoDB, Express, React, Node.js) stack application that provides user authentication and authorization features. It includes a frontend built with React and Vite, and a backend built with Express and MongoDB.
 
 ## Features
-
 - User registration and login
 - JWT-based authentication
-- Api validation with express-validator
+- API validation with express-validator
 - Protected routes with React Router and higher-order components
 - Context API for state management
 - Axios for API requests
 - UI Form validation with Yup and React Hook Form
 - Tailwind CSS for styling
+- Clean and reusable code structure
 
 ## Prerequisites
-
 - Node.js (v14 or higher)
 - MongoDB (local or cloud instance)
 
