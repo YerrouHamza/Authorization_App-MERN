@@ -3,7 +3,7 @@ import { body, validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
-import Users from '../models/users.js'
+import Users from '../models/authModels.js'
 
 const router = express.Router()
 

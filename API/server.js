@@ -2,7 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose'
 import dotenv from 'dotenv';
 import cors from 'cors'
-import login from './routes/login.js'
+import auth from './routes/auth.js'
 import authenticate from './middleware/tokenAuth.js'
 
 // config the dotenv so we can use variabels form the .env file
@@ -27,7 +27,7 @@ mongoose.connect(dbUrl)
     .catch((error) => console.error('MongoDB connection error:', error));
 
 // Use the route file for the Login
-app.use('/api/auth', login)
+app.use('/api/auth', auth)
 
 app.get('/api/protected', authenticate, (req, res) => {
     res.send('Welcome to the protected route');
